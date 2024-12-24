@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Timeless Essence</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- jQuery for AJAX -->                                                    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="home-page">
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Timeless Essence</div>
+        <nav>
+            <ul>
+                <li><a href="home.html" class="active">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay fade-in">
+          <h1>We Are Timeless</h1>
+          <p>Uncover the essence of elegance with our curated collection of fragrances.</p>
+          <button class="cta-button" onclick="window.location.href='products.html'">Shop Now</button>
+        </div>
+      </section>
+      
+
+    <!-- Main Content -->
+    <main>
+        <!-- Featured Perfumes Section -->
+        <section class="products-section">
+            <h1 class="dynamic-featured-heading"></h1>
+            <p class="dynamic-featured-paragraph"></p>
+            <div class="products-grid dynamic-products-grid"></div>
+        </section>
+
+        <!-- Collections Section -->
+        <section class="collections-section">
+            <h1 class="dynamic-collections-heading"></h1>
+            <p class="dynamic-collections-paragraph"></p>
+            <div class="collections-grid dynamic-collections-grid"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Contact Information -->
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:timelessessence@example.com">timelessessence@example.com</a></p>
+                <p>Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+                <p>Address: 123 Fragrance Lane, Perfume City, PC 12345</p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                </ul>
+            </div>
+
+            <!-- Social Media Links -->
+            <div class="footer-social">
+                <h3>Follow Us</h3>
+                <a href="#" target="_blank">Instagram</a> |
+                <a href="#" target="_blank">Facebook</a> |
+                <a href="#" target="_blank">Twitter</a> |
+                <a href="#" target="_blank">Pinterest</a>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 Timeless Essence. All rights reserved.</p>
+            <p>Designed with ❤️ by Timeless Essence Team.</p>
+        </div>
+    </footer>
+
+    <!-- Script to load JSON and dynamically create the cards -->
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                url: 'home.json',  // Change this to your actual JSON file path
+                dataType: 'json',
+                success: function(data) {
+                    // 1. FEATURED PERFUMES SECTION
+                    $('.dynamic-featured-heading').text(data.featuredPerfumesSection.heading);
+                    $('.dynamic-featured-paragraph').text(data.featuredPerfumesSection.paragraph);
+
+                    // Generate product cards
+                    var productsHtml = '';
+                    data.featuredPerfumesSection.products.forEach(function(product) {
+                        productsHtml += `
+                            <div class="product-card">
+                                <img src="${product.image}" alt="${product.name}">
+                                <h3>${product.name}</h3>
+                                <p>${product.description}</p>
+                                <p class="price">${product.price}</p>
+                                ${product.bestSeller ? '<span class="best-seller-badge">Best Seller</span>' : ''}
+                            </div>
+                        `;
+                    });
+                    $('.dynamic-products-grid').html(productsHtml);
+
+                    // 2. COLLECTIONS SECTION
+                    $('.dynamic-collections-heading').text(data.collectionsSection.heading);
+                    $('.dynamic-collections-paragraph').text(data.collectionsSection.paragraph);
+
+                    // Generate collection cards
+                    var collectionsHtml = '';
+                    data.collectionsSection.collections.forEach(function(collection) {
+                        collectionsHtml += `
+                            <div class="collection-card">
+                                <img class="collection-card" src="${collection.image}" alt="${collection.title}">
+                                <h3 class="collection-title">${collection.title}</h3>
+                            </div>
+                        `;
+                    });
+                    $('.dynamic-collections-grid').html(collectionsHtml);
+                },
+                error: function() {
+                    console.error('Failed to load JSON data.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

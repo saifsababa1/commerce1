@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- jQuery for AJAX -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- SweetAlert2 CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      /* Search Bar Styling */
+      .search-container {
+          max-width: 400px;        /* Limit the width so it's nicely centered or aligned */
+          margin: 20px auto;       /* Some margin to give spacing around the search bar */
+          position: relative;      /* Allows us to position icons or extra elements if needed */
+      }
+
+      .search-container::before {
+          content: "\f002";        /* Font Awesome icon for search (unicode) */
+          font-family: "Font Awesome 5 Free";
+          font-weight: 900;        /* For solid icon style */
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #888;             /* Icon color */
+          pointer-events: none;
+      }
+
+      #product-search {
+          width: 100%;
+          padding: 10px 10px 10px 35px; /* Extra left padding for icon */
+          font-size: 16px;
+          border: 2px solid #ccc;
+          border-radius: 8px;
+          transition: border-color 0.3s ease;
+          outline: none;
+      }
+      #product-search:hover {
+          border-color: #999;
+      }
+      #product-search:focus {
+          border-color: #333;
+      }
+    </style>
+</head>
+
+<body class="product-page">
+    <!-- Header -->
+    <header>
+        <div class="logo">Timeless Essence</div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="products-section">
+        <!-- We'll dynamically inject the title & subtitle here -->
+        <h1 class="dynamic-page-title"></h1>
+        <p class="dynamic-page-subtitle"></p>
+
+        <!-- Search bar -->
+        <div class="search-container">
+            <input 
+              type="text" 
+              id="product-search" 
+              placeholder="Search products..."
+              aria-label="Search Products"
+            />
+        </div>
+
+        <!-- Our products grid will be created here -->
+        <div class="products-grid dynamic-products-grid">
+            <!-- Product cards inserted via jQuery -->
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <!-- Contact Information -->
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p>Email: <a href="mailto:timelessessence@example.com">timelessessence@example.com</a></p>
+                    <p>Phone: <a href="tel:+1234567890">(123) 456-7890</a></p>
+                    <p>Address: 123 Fragrance Lane, Perfume City, PC 12345</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.html">Home</a></li>
+                        <li><a href="products.html">Products</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="cart.html">Cart</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="footer-social">
+                    <h3>Follow Us</h3>
+                    <a href="#" target="_blank">Instagram</a> |
+                    <a href="#" target="_blank">Facebook</a> |
+                    <a href="#" target="_blank">Twitter</a> |
+                    <a href="#" target="_blank">Pinterest</a>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 Timeless Essence. All rights reserved.</p>
+                <p>Designed with ❤️ by Timeless Essence Team.</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Script to load productsData.json and populate the page -->
+    <script>
+      $(document).ready(function() {
+        let allProducts = []; // We'll store the entire products array here.
+
+        $.getJSON("productData.json", function(data) {
+
+          // 1) Page Title & Subtitle
+          $(".dynamic-page-title").text(data.pageTitle);
+          $(".dynamic-page-subtitle").text(data.pageSubtitle);
+
+          // 2) Save the products array globally
+          allProducts = data.products;
+
+          // 3) Render all products initially
+          renderProducts(allProducts);
+
+        }).fail(function() {
+          console.error("Failed to load productsData.json");
+        });
+
+        // Function to build and display product cards
+        function renderProducts(productsArray) {
+          let productsHtml = "";
+
+          productsArray.forEach(product => {
+            const bestSellerClass = product.bestSeller ? "best-seller" : "";
+
+            productsHtml += `
+              <div class="product-card ${bestSellerClass}">
+                <img src="${product.image}" alt="${product.name}">
+                <p class="product-name">${product.name}</p>
+                <p class="product-description">${product.description}</p>
+                <p class="product-price">${product.price}</p>
+                <button class="shop-now">
+                  <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+              </div>
+            `;
+          });
+
+          // Insert HTML into .dynamic-products-grid
+          $(".dynamic-products-grid").html(productsHtml);
+
+          // Add "Add to Cart" click handlers for the newly rendered items
+          $(".shop-now").on("click", function() {
+            const card = $(this).closest(".product-card");
+            const product = {
+              image: card.find("img").attr("src"),
+              name: card.find(".product-name").text(),
+              description: card.find(".product-description").text(),
+              price: card.find(".product-price").text()
+            };
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            cart.push(product);
+            localStorage.setItem("cart", JSON.stringify(cart));
+
+            // SweetAlert2 popup instead of a plain alert
+            Swal.fire({
+              title: 'Added to Cart!',
+              text: product.name + ' has been added to your cart.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#28a745'
+            });
+          });
+        }
+
+        // Listen for search input changes
+        $("#product-search").on("input", function() {
+          const query = $(this).val().toLowerCase().trim();
+
+          // Filter the allProducts array
+          const filteredProducts = allProducts.filter(product => {
+            // Search in product name OR description
+            return (
+              product.name.toLowerCase().includes(query) ||
+              product.description.toLowerCase().includes(query)
+            );
+          });
+
+          // Render the filtered results
+          renderProducts(filteredProducts);
+        });
+      });
+    </script>
+</body>
+</html>

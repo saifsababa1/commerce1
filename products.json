@@ -1,0 +1,51 @@
+[
+    {
+      "name": "Bleu De Chanel",
+      "description": "A bold, modern fragrance perfect for confident men.",
+      "price": "$79.99",
+      "image": "assets/photo-1698793916137-30f994d15133.avif"
+    },
+    {
+      "name": "Shalimar Parfum Initial",
+      "description": "A warm floral scent ideal for enchanting evening wear.",
+      "price": "$69.99",
+      "image": "assets/prfumimg.jpg"
+    },
+    {
+      "name": "Davidoff Cool Water",
+      "description": "Fresh and invigorating, inspired by ocean breezes.",
+      "price": "$49.99",
+      "image": "assets/perfume-4718455_1280.jpg"
+    },
+    {
+      "name": "Dior Sauvage",
+      "description": "Spicy and woody notes for a bold, adventurous spirit.",
+      "price": "$49.99",
+      "image": "assets/frgrgrnceimg2.jpg"
+    },
+    {
+      "name": "Noir Or Blanc",
+      "description": "A harmonious mix of light and dark, truly captivating.",
+      "price": "$49.99",
+      "image": "assets/bottleee.jpg"
+    },
+    {
+      "name": "Jo Malone Nectarine",
+      "description": "Sweet nectarine and floral notes for a light, fresh feel.",
+      "price": "$49.99",
+      "image": "assets/photo-1519669011783-4eaa95fa1b7d.avif"
+    },
+    {
+      "name": "Cross Pour Homme",
+      "description": "A fresh, bold scent for confident, stylish modern men.",
+      "price": "$49.99",
+      "image": "assets/photo-1606501960142-44af172c5e33.avif"
+    },
+    {
+      "name": "L'eau Laurissi Poeme",
+      "description": "Elegant, warm, and poetic with a delicate inviting charm.",
+      "price": "$49.99",
+      "image": "assets/photo-1566977776052-6e61e35bf9be.avif"
+    }
+  ]
+  

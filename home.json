@@ -1,0 +1,58 @@
+{
+  "featuredPerfumesSection": {
+    "heading": "Featured Perfumes",
+    "paragraph": "Explore our carefully curated selection of timeless fragrances.",
+    "products": [
+      {
+        "image": "assets/photo-1698793916137-30f994d15133.avif",
+        "name": "Bleu De Chanel",
+        "description": "A bold, modern fragrance perfect for confident men.",
+        "price": "$79.99",
+        "bestSeller": true
+      },
+      {
+        "image": "assets/prfumimg.jpg",
+        "name": "Shalimar Parfum Initial",
+        "description": "A warm floral scent ideal for enchanting evening wear.",
+        "price": "$69.99",
+        "bestSeller": false
+      },
+      {
+        "image": "assets/bottleee.jpg",
+        "name": "Noir Or Blanc",
+        "description": "A harmonious mix of light and dark, truly captivating.",
+        "price": "$49.99",
+        "bestSeller": false
+      },
+      {
+        "image": "assets/photo-1519669011783-4eaa95fa1b7d.avif",
+        "name": "Jo Malone Nectarine",
+        "description": "Sweet nectarine and floral notes for a light, fresh feel.",
+        "price": "$49.99",
+        "bestSeller": false
+      }
+    ]
+  },
+  "collectionsSection": {
+    "heading": "Browse Collections",
+    "paragraph": "Discover fragrances for every season and mood.",
+    "collections": [
+      {
+        "image": "assets/summerfrgrnce.jpeg",
+        "title": "Summer Collection"
+      },
+      {
+        "image": "assets/winter.webp",
+        "title": "Winter Collection"
+      },
+      {
+        "image": "assets/spring.jpg",
+        "title": "Spring Collection"
+      },
+      {
+        "image": "assets/autumn.jpg",
+        "title": "Autumn Collection"
+      }
+    ]
+  }
+}
